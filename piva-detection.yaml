@@ -1,0 +1,21 @@
+id: p-iva-detector
+
+info:
+  name: P. IVA detector
+  author: Alessandro DRM
+  severity: info
+  description: A straightforward template that can be used in such a way as to detect whether a website has an Italian VAT or not. It's definitely not a vulnerability, however, it might provide further information for GDPR compliance.
+
+requests:
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+
+    matchers-condition: or
+    matchers:
+      - type: regex
+        name: Missing PIVA
+        regex:
+           - (?i)p\.\s*i\.?(?:\s*v\.?\s*a\.?)?.{0,30}\d{11}\b
+           - (?i)partita\s*i\.?(?:\s*v\.?\s*a\.?)?.{0,30}\d{11}\b
+        negative: true
